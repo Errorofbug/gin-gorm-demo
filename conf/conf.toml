@@ -1,0 +1,37 @@
+[app]
+pageSize = 10
+prefixUrl = "http://127.0.0.1:8080"
+
+runtimeRootPath = "runtime/"
+
+logSavePath = "logs/"
+logSaveName = "log"
+logFileExt = "log"
+timeFormat = "20060102"
+
+[server]
+# debug or release
+runMode = "debug"
+httpPort = 9000
+readTimeout = 60
+writeTimeout = 60
+
+[database]
+type = "mysql"
+name = "gin_gorm_demo"
+user = "root"
+password = "yy20040706"
+server = "my_mysql:3306"
+
+[redis]
+host = "my_redis:6379"
+password = "yy20040706"
+maxIdle = 30
+maxActive = 30
+idleTimeout = 200
+
+[lang]
+confFileExt = "toml"
+codeConfFilePath = "common/e/lang"
+defaultLanguage = "zh"
+defaultTimeZone = "GMT+08:00"

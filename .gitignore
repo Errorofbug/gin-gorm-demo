@@ -1,0 +1,15 @@
+*.log
+
+tmp/
+*.tmp
+
+.vscode/
+.idea/
+
+/go.sum
+/go-build/
+*.mod
+
+.air.toml
+
+/runtime

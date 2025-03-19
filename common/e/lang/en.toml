@@ -1,0 +1,10 @@
+200 = "Success"
+400 = "Invalid request parameters"
+500 = "Error"
+
+20001 = "Token authentication failed"
+20002 = "Token authentication timeout"
+20003 = "Incorrect username or password"
+
+30001 = "Failed to get user list"
+30002 = "Failed to get user information"

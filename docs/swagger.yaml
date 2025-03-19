@@ -1,0 +1,151 @@
+basePath: /api/v1
+definitions:
+  app.Response:
+    properties:
+      data: {}
+      errmsg:
+        type: string
+      errno:
+        type: integer
+    type: object
+  entity.GetUserListItemVO:
+    properties:
+      create_time:
+        type: string
+      department:
+        type: string
+      email:
+        type: string
+      real_name:
+        type: string
+      role:
+        type: integer
+      sex:
+        type: integer
+      work_no:
+        type: string
+    type: object
+  entity.GetUserListVO:
+    properties:
+      list:
+        items:
+          $ref: '#/definitions/entity.GetUserListItemVO'
+        type: array
+      total:
+        type: integer
+    type: object
+  entity.LoginVO:
+    properties:
+      token:
+        type: string
+    type: object
+host: localhost:9000
+info:
+  contact: {}
+  description: Gin+Gorm项目脚手架
+  license:
+    name: MIT
+  title: Golang Gin API
+  version: "1.0"
+paths:
+  /api/v1/getuserlist:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: 用户ID
+        in: query
+        name: id
+        type: integer
+      - description: 用户工号
+        in: query
+        name: work_no
+        type: string
+      - description: 用户姓名
+        in: query
+        name: real_name
+        type: string
+      - description: 用户角色
+        in: query
+        name: role
+        type: integer
+      - description: 用户性别
+        in: query
+        name: sex
+        type: integer
+      - description: 用户部门
+        in: query
+        name: department
+        type: string
+      - description: 分页
+        in: query
+        name: page
+        type: integer
+      - description: 分页大小
+        in: query
+        name: page_size
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/app.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/entity.GetUserListVO'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/app.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/app.Response'
+      summary: 获取用户列表
+      tags:
+      - user
+  /api/v1/login:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: 用户工号
+        in: body
+        name: work_no
+        required: true
+        schema:
+          type: string
+      - description: 密码
+        in: body
+        name: password
+        required: true
+        schema:
+          type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/app.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/entity.LoginVO'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/app.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/app.Response'
+      summary: 登录
+      tags:
+      - auth
+swagger: "2.0"
