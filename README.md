@@ -26,8 +26,9 @@
 2. 每一个`Model`根据是否需要软删，选择继承`BaseModel`或`SoftDeleteBaseModel`
 3. 每一个子类`Dao`都应实现以下方法：
     - `GetByID(id int64) (*Model, error)`: 根据主键 ID 获取记录
-    - `Insert(user *User) (int64, error)`: 新增记录
-    - `Update(user User) (bool, error)`: 根据主键 ID 更新记录
+    - `Select(where Where, appends Appends) ([]Model, error)`: 查询数据
+    - `Insert(model *Model) (int64, error)`: 新增记录
+    - `Update(model Model) (bool, error)`: 根据主键 ID 更新记录
     - `Delete(id int64) (bool, error)`: 根据主键 ID 删除记录（硬删/软删）
     - <font color="red">注：
         - `Insert`应向上层暴露最后一条插入记录的主键 ID

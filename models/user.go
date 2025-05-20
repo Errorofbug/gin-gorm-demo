@@ -49,6 +49,22 @@ func (dao *UserDao) GetByID(id int64) (*User, error) {
 	return &user, nil
 }
 
+// Select 查询数据
+func (dao *UserDao) Select(where Where, appends Appends) ([]User, error) {
+	var users []User
+	where["is_deleted"] = 0
+	fields := Fields{"*"}
+	err := dao.BaseSelectConvert(where, fields, appends, &users)
+	if err != nil {
+		if errors.Is(err, gorm.ErrRecordNotFound) {
+			return nil, nil
+		}
+		return nil, err
+	}
+
+	return users, nil
+}
+
 // Insert 新增记录
 func (dao *UserDao) Insert(user *User) (int64, error) {
 	lastInsertID, err := dao.BaseInsert(user)
@@ -81,8 +97,8 @@ func (dao *UserDao) Delete(id int64) (bool, error) {
 }
 
 // GetList 根据条件获取用户列表
-func (dao *UserDao) GetList(where Where, offset, limit int) ([]*User, error) {
-	var users []*User
+func (dao *UserDao) GetList(where Where, offset, limit int) ([]User, error) {
+	var users []User
 	where["is_deleted"] = 0
 	fields := Fields{"*"}
 	appends := Appends{
